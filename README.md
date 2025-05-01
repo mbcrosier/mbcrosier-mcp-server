@@ -1,9 +1,8 @@
-
-## MB Crosier's Personal MCP Server
+# MB Crosier's Personal MCP Server
 
 This MCP server has been customized for [MB Crosier](https://www.mbcrosier.com) and now includes three personal tools:
 
-### Tools
+## Tools
 
 - **get_bio**: Returns a short biography of MB.
 - **get_contact_info**: Returns MB Crosier's email info

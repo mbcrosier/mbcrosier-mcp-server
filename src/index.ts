@@ -12,9 +12,11 @@ export class MyMCP extends McpAgent {
 	async init() {
 		
 		// --- MB Crosier Personal Tools ---
+
+		// Returns a comprehensive bio detailing MB's current role at Harvard, her newsletter MCP in Context, past experiences, and personal interests
 		this.server.tool(
 			"get_bio",
-			{},
+			"Returns a bio of MB Crosier.",
 			async () => ({
 				content: [{
 					type: "text",
@@ -23,9 +25,10 @@ export class MyMCP extends McpAgent {
 			})
 		);
 
+		// Provides MB's primary email contact information for professional inquiries
 		this.server.tool(
 			"get_contact_info",
-			{},
+			"Provides MB Crosier's primary email address",
 			async () => ({
 				content: [{
 					type: "text",
@@ -34,9 +37,10 @@ export class MyMCP extends McpAgent {
 			})
 		);
 
+		// Returns links to MB's professional and social media presence across LinkedIn, GitHub, and Instagram
 		this.server.tool(
 			"get_social_links",
-			{},
+			"Returns links to MB Crosier's social accounts.",
 			async () => ({
 				content: [{
 					type: "text",

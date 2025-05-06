@@ -13,7 +13,7 @@ This MCP server has been customized for [MB Crosier](https://www.mbcrosier.com) 
 ## Try out this MCP Server using Cloudflare's AI Playground
 
 1. Go to https://playground.ai.cloudflare.com/
-2. Enter this MCP Server's deployed URL (`mbcrosier-mcp-server.mbcrosier.workers.dev/sse`)
+2. Enter this MCP Server's deployed URL (`https://mbcrosier-mcp-server.mbcrosier.workers.dev/sse`)
 3. You can now use MB's MCP server directly from the playground!
 
 
@@ -30,7 +30,7 @@ Update with this configuration:
       "command": "npx",
       "args": [
         "mcp-remote",
-        "mbcrosier-mcp-server.mbcrosier.workers.dev/sse" 
+        "https://mbcrosier-mcp-server.mbcrosier.workers.dev/sse" 
       ]
     }
   }

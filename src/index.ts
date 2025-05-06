@@ -51,11 +51,71 @@ export class MyMCP extends McpAgent {
 	}
 }
 
+// Helper function to render the landing page
+function renderLandingPage() {
+	return new Response(
+		`<!DOCTYPE html>
+		<html lang="en">
+		<head>
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<title>MB Crosier's Personal MCP Server</title>
+			<style>
+				body { font-family: system-ui, sans-serif; margin: 2rem; background: #f9f9fb; color: #222; }
+				h1 { color: #2d3a4a; }
+				ul { line-height: 1.7; }
+				code { background: #eee; padding: 2px 4px; border-radius: 3px; }
+				footer { margin-top: 2rem; color: #888; font-size: 0.95em; }
+			</style>
+		</head>
+		<body>
+			<h1>MB Crosier's Personal MCP Server</h1>
+			<p>This MCP server has been customized for <a href="https://www.mbcrosier.com" target="_blank">MB Crosier</a> and exposes the following tools:</p>
+			<ul>
+				<li><b>get_bio</b>: Returns a short biography of MB.</li>
+				<li><b>get_contact_info</b>: Returns MB Crosier's email info.</li>
+				<li><b>get_social_links</b>: Returns MB Crosier's LinkedIn, GitHub, and Instagram links.</li>
+			</ul>
+			<hr />
+			<h2>Try out this MCP Server using Cloudflare's AI Playground</h2>
+			<ol>
+				<li>Go to <a href="https://playground.ai.cloudflare.com/" target="_blank">Cloudflare AI Playground</a></li>
+				<li>Enter this MCP Server's deployed URL: <code>https://mbcrosier-mcp-server.mbcrosier.workers.dev/sse</code></li>
+				<li>You can now use MB's MCP server directly from the playground!</li>
+			</ol>
+			<h2>Connect this MCP Server to Claude Desktop</h2>
+			<p>To connect to this MCP server from Claude Desktop, follow <a href="https://modelcontextprotocol.io/quickstart/user" target="_blank">Anthropic's Quickstart</a> and within Claude Desktop go to <b>Settings &gt; Developer &gt; Edit Config</b>. Use this config:</p>
+			<pre style="background:#eee;padding:1em;border-radius:5px;overflow-x:auto;"><code>{
+  "mcpServers": {
+    "calculator": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://mbcrosier-mcp-server.mbcrosier.workers.dev/sse" 
+      ]
+    }
+  }
+}
+</code></pre>
+			<footer>
+				&copy; ${new Date().getFullYear()} MB Crosier &mdash; <a href="https://www.mbcrosier.com" target="_blank">mbcrosier.com</a>
+			</footer>
+		</body>
+		</html>`,
+		{ headers: { "content-type": "text/html" } }
+	);
+}
+
 export default {
 	fetch(request: Request, env: Env, ctx: ExecutionContext) {
 		const url = new URL(request.url);
 
 		if (url.pathname === "/sse" || url.pathname === "/sse/message") {
+			const accept = request.headers.get("accept") || "";
+			if (!accept.includes("text/event-stream")) {
+				return renderLandingPage();
+			}
+			// Otherwise, serve the SSE endpoint for MCP clients
 			// @ts-ignore
 			return MyMCP.serveSSE("/sse").fetch(request, env, ctx);
 		}
@@ -63,6 +123,10 @@ export default {
 		if (url.pathname === "/mcp") {
 			// @ts-ignore
 			return MyMCP.serve("/mcp").fetch(request, env, ctx);
+		}
+
+		if (url.pathname === "/") {
+			return renderLandingPage();
 		}
 
 		return new Response("Not found", { status: 404 });

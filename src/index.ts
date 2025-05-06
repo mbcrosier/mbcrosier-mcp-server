@@ -65,6 +65,60 @@ export default {
 			return MyMCP.serve("/mcp").fetch(request, env, ctx);
 		}
 
+		if (url.pathname === "/") {
+			return new Response(
+				`<!DOCTYPE html>
+				<html lang="en">
+				<head>
+					<meta charset="UTF-8">
+					<meta name="viewport" content="width=device-width, initial-scale=1.0">
+					<title>MB Crosier's Personal MCP Server</title>
+					<style>
+						body { font-family: system-ui, sans-serif; margin: 2rem; background: #f9f9fb; color: #222; }
+						h1 { color: #2d3a4a; }
+						ul { line-height: 1.7; }
+						code { background: #eee; padding: 2px 4px; border-radius: 3px; }
+						footer { margin-top: 2rem; color: #888; font-size: 0.95em; }
+					</style>
+				</head>
+				<body>
+					<h1>MB Crosier's Personal MCP Server</h1>
+					<p>This MCP server has been customized for <a href="https://www.mbcrosier.com" target="_blank">MB Crosier</a> and exposes the following tools:</p>
+					<ul>
+						<li><b>get_bio</b>: Returns a bio of MB Crosier.</li>
+						<li><b>get_contact_info</b>: Provides MB Crosier's primary email address.</li>
+						<li><b>get_social_links</b>: Returns links to MB Crosier's social accounts.</li>
+					</ul>
+					<hr />
+					<h2>Try it out</h2>
+					<ol>
+						<li>Go to <a href="https://playground.ai.cloudflare.com/" target="_blank">Cloudflare AI Playground</a></li>
+						<li>Enter this MCP Server's deployed URL: <code>mbcrosier-mcp-server.mbcrosier.workers.dev/sse</code></li>
+						<li>You can now use MB's MCP server directly from the playground!</li>
+					</ol>
+					<h2>Connect to Claude Desktop</h2>
+					<p>Follow <a href="https://modelcontextprotocol.io/quickstart/user" target="_blank">Anthropic's Quickstart</a> and in Claude Desktop go to <b>Settings &gt; Developer &gt; Edit Config</b>. Use this config:</p>
+					<pre style="background:#eee;padding:1em;border-radius:5px;overflow-x:auto;"><code>{
+  "mcpServers": {
+    "mbcrosier": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "mbcrosier-mcp-server.mbcrosier.workers.dev/sse"
+      ]
+    }
+  }
+}
+</code></pre>
+					<footer>
+						&copy; ${new Date().getFullYear()} MB Crosier &mdash; <a href="https://www.mbcrosier.com" target="_blank">mbcrosier.com</a>
+					</footer>
+				</body>
+				</html>`,
+				{ headers: { "content-type": "text/html" } }
+			);
+		}
+
 		return new Response("Not found", { status: 404 });
 	},
 };

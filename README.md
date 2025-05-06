@@ -30,7 +30,7 @@ Update with this configuration:
       "command": "npx",
       "args": [
         "mcp-remote",
-        "mbcrosier-mcp-server.mbcrosier.workers.dev/sse" 
+        "https://mbcrosier-mcp-server.mbcrosier.workers.dev/sse" 
       ]
     }
   }

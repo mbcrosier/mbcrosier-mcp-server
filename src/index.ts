@@ -80,7 +80,7 @@ function renderLandingPage() {
 			<h2>Try out this MCP Server using Cloudflare's AI Playground</h2>
 			<ol>
 				<li>Go to <a href="https://playground.ai.cloudflare.com/" target="_blank">Cloudflare AI Playground</a></li>
-				<li>Enter this MCP Server's deployed URL: <code>mbcrosier-mcp-server.mbcrosier.workers.dev/sse</code></li>
+				<li>Enter this MCP Server's deployed URL: <code>https://mbcrosier-mcp-server.mbcrosier.workers.dev/sse</code></li>
 				<li>You can now use MB's MCP server directly from the playground!</li>
 			</ol>
 			<h2>Connect this MCP Server to Claude Desktop</h2>
